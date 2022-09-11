@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<title>Random</title>
+
+<style>
+  .container{
+    min-height: 100vh;
+  }
+  #content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    direction: rtl;
+    text-align: right;
+  }
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div id="alert" class="alert"></div>
+      <div id="content" class="jumbotron-fluid"></div>
+    </div>
+  </div>
+</div>      
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+<script>
+  $(() => {
+    $("#alert").text("LOADING ...").addClass("alert-info")
+    $.get('https://api.alireza-kavian.ir/random_text/', (data, status) => {
+      msg = ""
+      className = ""
+      if(status == 'success'){
+        className = "d-none";
+        console.log(data);
+        text = String(data.content).replace(/\n/g, "<br />")
+        $("#content").html(text)
+      }
+      else{
+        msg = "Something went wrong!"
+        className = "alert-danger";
+      }
+      $("#alert").removeClass("alert-info").text(msg).addClass(className)
+    })
+  })
+</script>
+
+</body>
+</html>
